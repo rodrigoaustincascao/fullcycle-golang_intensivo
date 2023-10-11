@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  golangnet:
+    driver: bridge
+
+services:
+  go-app:
+    image: golang:1.21.3
+    tty: true
+    volumes:
+      - ../:/go/src
+    ports:
+      - "8080:8080"
+    networks:
+      - golangnet
+    # environment:

@@ -1,0 +1,12 @@
+# Executar programas go
+go run main.go
+
+# Gerar o build
+go build main.go
+
+# Gerar o build para windows
+GOOS=windows go build main.go
+
+# Iniciar o go.mod
+go mod init github.com/rodrigoaustincascao/fullcy
+cle-golang_intensivo
