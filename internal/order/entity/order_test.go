@@ -29,3 +29,11 @@ func TestGivenAValidParams_WhenCallNewOrder_ThenShould_ReceiveCreateOrderWithAll
 	assert.Equal(t, 10.0, order.Price)
 	assert.Equal(t, 2.0, order.Tax)
 }
+
+func TestGivenAValidParams_WhenCallCalculateFinalPrice_ThenShouldCalculateFinalPriceAndSetItOnFinalPriceProperty(t *testing.T) {
+	order, err := entity.NewOrder("123", 10, 2)
+	assert.NoError(t, err)
+	err = order.CalculateFinalPrice()
+	assert.NoError(t, err)
+	assert.Equal(t, 12.0, order.FinalPrice)
+}

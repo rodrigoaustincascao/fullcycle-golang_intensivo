@@ -10,3 +10,9 @@ GOOS=windows go build main.go
 # Iniciar o go.mod
 go mod init github.com/rodrigoaustincascao/fullcy
 cle-golang_intensivo
+
+# Atualizar as dependências
+go mod tidy
+
+# SQL para criação da tabela ORDERS
+create table orders(id varchar(255), price float, tax float, final_price float, PRIMARY KEY (id));

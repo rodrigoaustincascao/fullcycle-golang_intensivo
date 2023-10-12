@@ -2,6 +2,10 @@ package entity
 
 import "errors"
 
+type OrderRepositoryInterface interface {
+	Save(order *Order) error
+}
+
 type Order struct {
 	ID         string
 	Price      float64
@@ -20,6 +24,15 @@ func NewOrder(id string, price float64, tax float64) (*Order, error) {
 		return nil, err
 	}
 	return order, nil
+}
+
+func (o *Order) CalculateFinalPrice() error {
+	o.FinalPrice = o.Price + o.Tax
+	err := o.IsValid()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Order) IsValid() error {

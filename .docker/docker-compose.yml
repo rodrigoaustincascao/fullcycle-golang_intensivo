@@ -4,9 +4,12 @@ networks:
   golangnet:
     driver: bridge
 
+volumes:
+    mysql-volume:
+
 services:
   go-app:
-    image: golang:1.21.3
+    image: mcr.microsoft.com/devcontainers/go:1-1.21-bullseye
     tty: true
     volumes:
       - ../:/go/src
@@ -15,3 +18,17 @@ services:
     networks:
       - golangnet
     # environment:
+  
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orders
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    networks:
+      - golangnet
