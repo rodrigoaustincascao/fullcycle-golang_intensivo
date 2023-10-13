@@ -5,7 +5,8 @@ networks:
     driver: bridge
 
 volumes:
-    mysql-volume:
+    mysql-data:
+    grafana_data:
 
 services:
   go-app:
@@ -28,7 +29,7 @@ services:
       MYSQL_DATABASE: orders
       MYSQL_PASSWORD: root
     volumes:
-      - mysql-volume:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
       - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     networks:
       - golangnet
@@ -45,6 +46,9 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
       - RABBITMQ_DEFAULT_VHOST=/
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
     networks:
       - golangnet
 
@@ -70,5 +74,7 @@ services:
     hostname: grafana
     ports:
       - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
     networks:
       - golangnet

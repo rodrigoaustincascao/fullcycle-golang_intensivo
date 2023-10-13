@@ -16,3 +16,10 @@ go mod tidy
 
 # SQL para criação da tabela ORDERS
 create table orders(id varchar(255), price float, tax float, final_price float, PRIMARY KEY (id));
+
+# Conectar o grafana no Prometheus
+No grafana -> Data Source -> Prometheus:
+    configurar apenas a url: http://prometheus:9090
+
+# Template do grafana
+No grafana -> dashboard -> New -> Import -> código do grafana.com (10991) -> indicar o Prometheus Default

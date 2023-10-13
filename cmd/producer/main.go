@@ -40,6 +40,7 @@ func GenerateOrders() Order {
 }
 
 func main() {
+
 	// Abre a conexão com rabbitmq
 	conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
 	if err != nil {
@@ -55,7 +56,7 @@ func main() {
 	defer ch.Close()
 
 	// Enviando para o rabbitmq
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 100000; i++ {
 		order := GenerateOrders()
 		err := Notify(ch, order)
 		if err != nil {
